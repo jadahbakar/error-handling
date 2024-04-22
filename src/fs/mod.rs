@@ -2,8 +2,6 @@ use crate::Result;
 
 pub fn list_files(path: &str) -> Result<Vec<String>> {
     let files: Vec<String> = std::fs::read_dir(path)?
-        // let files: Vec<String> = std::fs::read_dir(path)
-        // .map_err(|err| format!("error while reading dir: cause {err}"))?
         .filter_map(|re| re.ok())
         .filter(|e| e.file_type().map(|ft| ft.is_file()).unwrap_or(false))
         .filter_map(|e| e.file_name().into_string().ok())
